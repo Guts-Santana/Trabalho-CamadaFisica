@@ -164,8 +164,8 @@ string CamadaFisicaReceptoraDecodificacaoBipolar(string mensagem){
 string CamadaFisicaTransmissoraCodificacaoManchester(string mensagem){
 
     string mensagem_manchester;
- //Se o bit lido na subida do clock for 0, ele irá ler como 1 pra 0(2 bits)
- //Se o bit lido na subida do clock for 1, ele irá ler como 0 pra 1(2bits)
+ //Se o bit lido na subida do clock for 0, ele irá ler como 1 pra 0 (2 bits)
+ //Se o bit lido na subida do clock for 1, ele irá ler como 0 pra 1 (2bits)
     for (int i = 0; i < (int)mensagem.length(); i++) {
 
         if (mensagem[i]=='0') {
