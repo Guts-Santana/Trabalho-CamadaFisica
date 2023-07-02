@@ -119,16 +119,22 @@ string CamadaFisicaReceptoraDecodificacaoBinaria(string mensagem){
 string CamadaFisicaTransmissoraCodificacaoBipolar(string mensagem) {
 
     string mensagem_bipolada;
+    int x = 1;
 
     for (int i = 0; i < (int)mensagem.length(); i++) {
 
         if (mensagem[i] == '0') {
 
-            mensagem_bipolada += '-';
-            mensagem_bipolada += '1';
+            mensagem_bipolada += '0';
         } else {
-
-            mensagem_bipolada += mensagem[i];
+            if (x == 1) {
+                mensagem_bipolada += mensagem[i];
+                x = -1;
+            } else {
+                mensagem_bipolada += '-';
+                mensagem_bipolada += mensagem[i];
+                x = 1;
+            }
         }
     }
     cout<<mensagem_bipolada<<endl;
@@ -136,22 +142,20 @@ string CamadaFisicaTransmissoraCodificacaoBipolar(string mensagem) {
     return mensagem_bipolada;
 }
 string CamadaFisicaReceptoraDecodificacaoBipolar(string mensagem){
-
+    cout << mensagem<<endl;
     string mensagem_bipolar_decodificada;
 
     for (int i = 0; i < (int)mensagem.length(); i++) {
 
         if (mensagem[i] == '-') {
-
-            mensagem_bipolar_decodificada += '0';
+            mensagem_bipolar_decodificada += '1';
             i++;
 
         } else {
-
-            mensagem_bipolar_decodificada += '1';
+            mensagem_bipolar_decodificada += mensagem[i];
         }
     }
-
+    cout << mensagem_bipolar_decodificada <<endl;
     return mensagem_bipolar_decodificada;
 }
 
