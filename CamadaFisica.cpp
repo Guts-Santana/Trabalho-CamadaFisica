@@ -34,7 +34,7 @@ void CamadaDeAplicacaoTransmissora(string msg) {
 
 
 void CamadaFisicaTransmissora(string binaria) {
-    int tipoDeCodificacao = 2;
+    int tipoDeCodificacao = 1;
     string fluxoBrutoDeBits;
 
     switch (tipoDeCodificacao) {
@@ -66,7 +66,7 @@ void MeioDeComunicacao(string fluxo) {
 }
 
 void CamadaFisicaReceptora(string fluxoBrutoDeBitsPontoB) {
-    int tipoDeDecodificacao = 2;  // Alterar junto com o tipo de Codificacao;
+    int tipoDeDecodificacao = 1;  // Alterar junto com o tipo de Codificacao;
     string fluxoBrutoDeBits;
 
     switch (tipoDeDecodificacao) {
@@ -84,7 +84,9 @@ void CamadaFisicaReceptora(string fluxoBrutoDeBitsPontoB) {
     CamadaDeAplicacaoReceptora(fluxoBrutoDeBits);
 }
 
+//Essa função é a responsavel por passar de string com binario para char dos inteiros, e assim ler conforme a tabela ASCII
 void CamadaDeAplicacaoReceptora(string fluxoBrutoDeBits) {
+
     string mensagem;
 
     for (int i = 0; i < (int)fluxoBrutoDeBits.length(); i=i+8) {
@@ -119,7 +121,7 @@ string CamadaFisicaReceptoraDecodificacaoBinaria(string mensagem){
 string CamadaFisicaTransmissoraCodificacaoBipolar(string mensagem) {
 
     string mensagem_bipolada;
-    int x = 1;
+    int x = 1; //Vai servir para definir qual 1 é positivo e qual é negativo
 
     for (int i = 0; i < (int)mensagem.length(); i++) {
 
@@ -129,11 +131,11 @@ string CamadaFisicaTransmissoraCodificacaoBipolar(string mensagem) {
         } else {
             if (x == 1) {
                 mensagem_bipolada += mensagem[i];
-                x = -1;
+                x = -1; // especifica que o próximo 1 é negativo
             } else {
                 mensagem_bipolada += '-';
                 mensagem_bipolada += mensagem[i];
-                x = 1;
+                x = 1; // especifica que o próximo é positivo
             }
         }
     }
@@ -142,7 +144,7 @@ string CamadaFisicaTransmissoraCodificacaoBipolar(string mensagem) {
     return mensagem_bipolada;
 }
 string CamadaFisicaReceptoraDecodificacaoBipolar(string mensagem){
-    cout << mensagem<<endl;
+
     string mensagem_bipolar_decodificada;
 
     for (int i = 0; i < (int)mensagem.length(); i++) {
@@ -155,7 +157,6 @@ string CamadaFisicaReceptoraDecodificacaoBipolar(string mensagem){
             mensagem_bipolar_decodificada += mensagem[i];
         }
     }
-    cout << mensagem_bipolar_decodificada <<endl;
     return mensagem_bipolar_decodificada;
 }
 
@@ -163,7 +164,8 @@ string CamadaFisicaReceptoraDecodificacaoBipolar(string mensagem){
 string CamadaFisicaTransmissoraCodificacaoManchester(string mensagem){
 
     string mensagem_manchester;
-
+ //Se o bit lido na subida do clock for 0, ele irá ler como 1 pra 0(2 bits)
+ //Se o bit lido na subida do clock for 1, ele irá ler como 0 pra 1(2bits)
     for (int i = 0; i < (int)mensagem.length(); i++) {
 
         if (mensagem[i]=='0') {
